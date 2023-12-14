@@ -1,7 +1,5 @@
 package de.errorcraftlp.cryingobsidian.item;
 
-import java.util.List;
-
 import de.errorcraftlp.cryingobsidian.misc.CryingObsidianConfig;
 import de.errorcraftlp.cryingobsidian.misc.Utils;
 import net.minecraft.client.resources.I18n;
@@ -25,55 +23,57 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.dv.minecraft.cryingobsidian.Reference;
 
+import java.util.List;
+
 public class ItemCryingObsidian extends Item {
-	public ItemCryingObsidian() {
-		super();
-		setTranslationKey("crying_obsidian_item");
-		setRegistryName("crying_obsidian_item");
-		setCreativeTab(CreativeTabs.MISC);
-	}
+    public ItemCryingObsidian() {
+        super();
+        setTranslationKey("crying_obsidian_item");
+        setRegistryName("crying_obsidian_item");
+        setCreativeTab(CreativeTabs.MISC);
+    }
 
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
-		Utils.setSpawnPointAtPlayer(world, player);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
-	}
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+        Utils.setSpawnPointAtPlayer(world, player);
+        return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+    }
 
-	@Override
-	public boolean onLeftClickEntity(final ItemStack stack, final EntityPlayer player, final Entity entity) {
-		if(!player.world.isRemote && entity instanceof EntityLiving) {
-			if(CryingObsidianConfig.enableRespawnWhitelist) {
-				final ResourceLocation entityKey = EntityList.getKey(entity);
-				for(final String whitelistEntry : CryingObsidianConfig.respawnWhitelist) {
-					final ResourceLocation entryKey = new ResourceLocation(whitelistEntry);
-					if(entryKey.equals(entityKey)) {
-						final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Reference.MOD_ID);
-						itemNBT.setUniqueId("EntityUUID", entity.getUniqueID());
+    @Override
+    public boolean onLeftClickEntity(final ItemStack stack, final EntityPlayer player, final Entity entity) {
+        if (!player.world.isRemote && entity instanceof EntityLiving) {
+            if (CryingObsidianConfig.enableRespawnWhitelist) {
+                final ResourceLocation entityKey = EntityList.getKey(entity);
+                for (final String whitelistEntry : CryingObsidianConfig.respawnWhitelist) {
+                    final ResourceLocation entryKey = new ResourceLocation(whitelistEntry);
+                    if (entryKey.equals(entityKey)) {
+                        final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Reference.MOD_ID);
+                        itemNBT.setUniqueId("EntityUUID", entity.getUniqueID());
 
-						player.sendMessage(new TextComponentTranslation("message.entity_linked"));
-						return true;
-					}
-				}
-				final TextComponentTranslation message = new TextComponentTranslation("message.entity_whitelist");
-				message.getStyle().setColor(TextFormatting.RED);
-				player.sendMessage(message);
-			} else {
-				final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Reference.MOD_ID);
-				itemNBT.setUniqueId("EntityUUID", entity.getUniqueID());
+                        player.sendMessage(new TextComponentTranslation("message.entity_linked"));
+                        return true;
+                    }
+                }
+                final TextComponentTranslation message = new TextComponentTranslation("message.entity_whitelist");
+                message.getStyle().setColor(TextFormatting.RED);
+                player.sendMessage(message);
+            } else {
+                final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Reference.MOD_ID);
+                itemNBT.setUniqueId("EntityUUID", entity.getUniqueID());
 
-				player.sendMessage(new TextComponentTranslation("message.entity_linked"));
-			}
-		}
-		return true;
-	}
+                player.sendMessage(new TextComponentTranslation("message.entity_linked"));
+            }
+        }
+        return true;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, final ITooltipFlag tooltipFlag) {
-		final NBTTagCompound itemNBT = stack.getSubCompound(Reference.MOD_ID);
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, final ITooltipFlag tooltipFlag) {
+        final NBTTagCompound itemNBT = stack.getSubCompound(Reference.MOD_ID);
 
-		if(itemNBT != null && itemNBT.getUniqueId("EntityUUID") != null) {
-			tooltip.add(I18n.format("desc.crying_obsidian_item"));
-		}
-	}
+        if (itemNBT != null && itemNBT.getUniqueId("EntityUUID") != null) {
+            tooltip.add(I18n.format("desc.crying_obsidian_item"));
+        }
+    }
 }

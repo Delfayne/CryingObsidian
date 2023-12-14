@@ -10,14 +10,14 @@ import org.dv.minecraft.cryingobsidian.Reference;
 
 @EventBusSubscriber(modid = Reference.MOD_ID)
 public class CryingObsidianEventHandler {
-	@SubscribeEvent
-	public static void preventSleeping(final PlayerSleepInBedEvent event) {
-		// Disable sleeping in beds if the config option is enabled
-		if(CryingObsidianConfig.disableBeds) {
-			event.setResult(SleepResult.OTHER_PROBLEM);
-			final TextComponentTranslation message = new TextComponentTranslation("message.bed_disabled");
-			message.getStyle().setColor(TextFormatting.RED);
-			event.getEntityPlayer().sendMessage(message);
-		}
-	}
+    @SubscribeEvent
+    public static void preventSleeping(final PlayerSleepInBedEvent event) {
+        // Disable sleeping in beds if the config option is enabled
+        if (CryingObsidianConfig.disableBeds) {
+            event.setResult(SleepResult.OTHER_PROBLEM);
+            final TextComponentTranslation message = new TextComponentTranslation("message.bed_disabled");
+            message.getStyle().setColor(TextFormatting.RED);
+            event.getEntityPlayer().sendMessage(message);
+        }
+    }
 }

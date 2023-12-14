@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "normal": { "model": "cryingobsidian:crying_obsidian_block" }
+  "variants": {
+    "normal": {
+      "model": "cryingobsidian:crying_obsidian_block"
     }
+  }
 }
