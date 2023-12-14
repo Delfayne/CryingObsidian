@@ -60,20 +60,22 @@ public class TileEntityCryingObsidianAdvanced extends TileEntity {
 
     @SubscribeEvent
     public void onEntityDeath(final LivingDeathEvent event) {
-        if (!world.isRemote) {
-            final EntityLivingBase entity = event.getEntityLiving();
+        if (world == null || world.isRemote) {
+            return;
+        }
 
-            if (getStoredUUID() != null && entity.getUniqueID().equals(getStoredUUID())) {
-                event.setCanceled(true);
-                entity.isDead = false;
-                entity.setHealth(entity.getMaxHealth());
-                entity.moveToBlockPosAndAngles(pos.up(), entity.rotationYaw, entity.rotationPitch);
+        final EntityLivingBase entity = event.getEntityLiving();
 
-                if (getOwnerUUID() != null) {
-                    final EntityPlayer player = world.getPlayerEntityByUUID(getOwnerUUID());
-                    if (player != null) {
-                        player.sendMessage(new TextComponentTranslation("message.entity_respawned"));
-                    }
+        if (getStoredUUID() != null && entity.getUniqueID().equals(getStoredUUID())) {
+            event.setCanceled(true);
+            entity.isDead = false;
+            entity.setHealth(entity.getMaxHealth());
+            entity.moveToBlockPosAndAngles(pos.up(), entity.rotationYaw, entity.rotationPitch);
+
+            if (getOwnerUUID() != null) {
+                final EntityPlayer player = world.getPlayerEntityByUUID(getOwnerUUID());
+                if (player != null) {
+                    player.sendMessage(new TextComponentTranslation("message.entity_respawned"));
                 }
             }
         }
