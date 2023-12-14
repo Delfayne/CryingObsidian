@@ -6,8 +6,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.dv.minecraft.cryingobsidian.Reference;
 
-@EventBusSubscriber(modid = Utils.ID)
+@EventBusSubscriber(modid = Reference.MOD_ID)
 public class CryingObsidianEventHandler {
 	@SubscribeEvent
 	public static void preventSleeping(final PlayerSleepInBedEvent event) {

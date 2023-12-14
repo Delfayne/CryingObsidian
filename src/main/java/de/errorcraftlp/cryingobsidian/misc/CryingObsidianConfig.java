@@ -5,8 +5,9 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.dv.minecraft.cryingobsidian.Reference;
 
-@Config(modid = Utils.ID)
+@Config(modid = Reference.MOD_ID)
 public class CryingObsidianConfig {
 	@Config.Name("Enable chat message")
 	@Config.Comment("Whether a chat message should be shown when you set your spawn point with the Crying Obsidian block/item.")
@@ -36,12 +37,12 @@ public class CryingObsidianConfig {
 	@Config.Comment("A list of entities which can be bound to the advanced Crying Obsidian block. You can use the /summon command to obtain the entity IDs.")
 	public static String[] respawnWhitelist = {};
 
-	@EventBusSubscriber(modid = Utils.ID)
+	@EventBusSubscriber(modid = Reference.MOD_ID)
 	private static class ConfigGui {
 		@SubscribeEvent
 		public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
-			if(event.getModID().equals(Utils.ID)) {
-				ConfigManager.sync(Utils.ID, Config.Type.INSTANCE);
+			if(event.getModID().equals(Reference.MOD_ID)) {
+				ConfigManager.sync(Reference.MOD_ID, Config.Type.INSTANCE);
 			}
 		}
 	}

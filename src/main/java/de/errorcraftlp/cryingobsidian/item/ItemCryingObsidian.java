@@ -23,6 +23,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.dv.minecraft.cryingobsidian.Reference;
 
 public class ItemCryingObsidian extends Item {
 	public ItemCryingObsidian() {
@@ -46,7 +47,7 @@ public class ItemCryingObsidian extends Item {
 				for(final String whitelistEntry : CryingObsidianConfig.respawnWhitelist) {
 					final ResourceLocation entryKey = new ResourceLocation(whitelistEntry);
 					if(entryKey.equals(entityKey)) {
-						final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Utils.ID);
+						final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Reference.MOD_ID);
 						itemNBT.setUniqueId("EntityUUID", entity.getUniqueID());
 
 						player.sendMessage(new TextComponentTranslation("message.entity_linked"));
@@ -57,7 +58,7 @@ public class ItemCryingObsidian extends Item {
 				message.getStyle().setColor(TextFormatting.RED);
 				player.sendMessage(message);
 			} else {
-				final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Utils.ID);
+				final NBTTagCompound itemNBT = stack.getOrCreateSubCompound(Reference.MOD_ID);
 				itemNBT.setUniqueId("EntityUUID", entity.getUniqueID());
 
 				player.sendMessage(new TextComponentTranslation("message.entity_linked"));
@@ -69,7 +70,7 @@ public class ItemCryingObsidian extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, final ITooltipFlag tooltipFlag) {
-		final NBTTagCompound itemNBT = stack.getSubCompound(Utils.ID);
+		final NBTTagCompound itemNBT = stack.getSubCompound(Reference.MOD_ID);
 
 		if(itemNBT != null && itemNBT.getUniqueId("EntityUUID") != null) {
 			tooltip.add(I18n.format("desc.crying_obsidian_item"));

@@ -9,8 +9,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import org.dv.minecraft.cryingobsidian.Reference;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Utils.ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 public class CryingObsidianModels {
 	@SubscribeEvent
 	public static void registerModels(@SuppressWarnings("unused") final ModelRegistryEvent event) {
@@ -21,7 +22,7 @@ public class CryingObsidianModels {
 	}
 
 	private static void register(final Item item, final String name) {
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Utils.ID + ":" + name, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + name, "inventory"));
 	}
 
 	private static void register(final Block block, final String name) {

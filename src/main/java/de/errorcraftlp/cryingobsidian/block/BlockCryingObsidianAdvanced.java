@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.dv.minecraft.cryingobsidian.Reference;
 
 public class BlockCryingObsidianAdvanced extends BlockContainer {
 	public BlockCryingObsidianAdvanced() {
@@ -82,11 +83,11 @@ public class BlockCryingObsidianAdvanced extends BlockContainer {
 
 			if(heldStack.getItem().equals(CryingObsidian.cryingObsidianItem)) {
 				if(CryingObsidianConfig.enableAdvancedCryingObsidianEntityRespawning) {
-					final NBTTagCompound itemNBT = heldStack.getSubCompound(Utils.ID);
+					final NBTTagCompound itemNBT = heldStack.getSubCompound(Reference.MOD_ID);
 
 					if(itemNBT != null && tileEntity instanceof TileEntityCryingObsidianAdvanced) {
 						((TileEntityCryingObsidianAdvanced)tileEntity).setStoredUUID(itemNBT.getUniqueId("EntityUUID"));
-						heldStack.removeSubCompound(Utils.ID);
+						heldStack.removeSubCompound(Reference.MOD_ID);
 
 						player.sendMessage(new TextComponentTranslation("message.entity_spawn_here"));
 					}
